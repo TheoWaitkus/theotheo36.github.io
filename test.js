@@ -83,19 +83,29 @@ function getMousePos(event) {
 				point3y=y;
 				console.log("third click");
 				    ctx.beginPath();
-    ctx.rect(point3x, point3y, 10, 10);
-    ctx.fillStyle = "red";
-    ctx.fill();
+				point3done=true;
+				   			 ctx.rect(point3x, point3y, 10, 10);
+    		ctx.fillStyle = "red";
+    		ctx.fill();
 				point3done=true;
 				start();
 				iterate();
+				    
+			}else{
+				const context = canvas.getContext('2d');
+
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				point1done=false;
+				point2done=false;
+				point3done=false;
+				console.log("fourth click");
+			}}}
+
 			}
 		
-		}
 		
 	
-	}
-}
+	
 
 document.addEventListener("click", getMousePos);
 
