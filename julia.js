@@ -6,9 +6,10 @@ var center=c.width/2;
 
 var scaling=2/c.width;
 
-var iterations = 300;
+var iterations = 200;
 
-
+var xIters=c.height;
+var yIters=c.height;
 
 var ctx = c.getContext("2d");
 
@@ -32,7 +33,42 @@ function draw(x,y,color,size){
 
 }
 
-for(var x=0;x<c.width;x++)
+var y=0;
+
+function fractal()
+{
+	for(var x=0;x<xIters;x++)
+	{
+		var complexNumber = [(x-center)*scaling,(y-center)*scaling];
+		for(var i=0;i<iterations;i++)
+		{
+			complexNumber = uber(complexNumber);
+		}
+		if((Math.sqrt(complexNumber[0]*complexNumber[0]+complexNumber[1]*complexNumber[1])<=1 ))
+		{
+			draw(x,y,'rgb(34,9,84)',1);
+			
+		}
+		else
+		{
+			var derivative=2*(Math.sqrt(((x-center)*scaling)*((x-center)*scaling)+((y-center)*scaling)*(y-center)*scaling));
+			
+			var colorR=255/derivative;
+			var colorG=0
+			var colorB=0
+			draw(x,y,'rgb('+colorR+','+colorG+','+colorG+')',.5)
+		}
+	}
+	y++;
+	if(y<yIters)
+	{
+		setTimeout(fractal,0)
+	}
+}
+
+fractal();
+
+/*for(var x=0;x<c.width;x++)
 {
 	for(var y=0;y<c.height;y++)
 	{
@@ -58,7 +94,9 @@ for(var x=0;x<c.width;x++)
 		
 	}
 	
-}
+}*/
+
+
 
 
 
