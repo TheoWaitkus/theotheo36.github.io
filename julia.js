@@ -6,7 +6,7 @@ var center=c.width/2;
 
 var scaling=2/c.width;
 
-var iterations = 200;
+var iterations = 255;
 
 var xIters=c.height;
 var yIters=c.height;
@@ -15,6 +15,8 @@ var ctx = c.getContext("2d");
 
 var realConst=-.7269;
 var imaginaryConst=0.1889;
+
+var breakout=500;
 
 
 
@@ -40,23 +42,28 @@ function fractal()
 	for(var x=0;x<xIters;x++)
 	{
 		var complexNumber = [(x-center)*scaling,(y-center)*scaling];
-		for(var i=0;i<iterations;i++)
+		var i =0
+		while(i<iterations && complexNumber[0]*complexNumber[0]+complexNumber[1]*complexNumber[1]<breakout*breakout)
 		{
 			complexNumber = uber(complexNumber);
+			i++;
 		}
+		console.log(i);
 		if((Math.sqrt(complexNumber[0]*complexNumber[0]+complexNumber[1]*complexNumber[1])<=1 ))
 		{
-			draw(x,y,'rgb(34,9,84)',1);
-			
+			draw(x,y,'rgb('+x*255/xIters+','+y*255/yIters+','+0+')',1);
 		}
 		else
 		{
 			var derivative=2*(Math.sqrt(((x-center)*scaling)*((x-center)*scaling)+((y-center)*scaling)*(y-center)*scaling));
-			
-			var colorR=255/derivative;
+			if(i<230)
+			{
+				i=255/derivative;
+			}
+			var colorR=i;
 			var colorG=0
 			var colorB=0
-			draw(x,y,'rgb('+colorR+','+colorG+','+colorG+')',.5)
+			draw(x,y,'rgb('+colorG+','+colorG+','+colorR+')',.5)
 		}
 	}
 	y++;
@@ -68,33 +75,6 @@ function fractal()
 
 fractal();
 
-/*for(var x=0;x<c.width;x++)
-{
-	for(var y=0;y<c.height;y++)
-	{
-		var complexNumber = [(x-center)*scaling,(y-center)*scaling];
-		
-		for(var i=0;i<iterations;i++)
-		{
-			complexNumber = uber(complexNumber);
-		}
-		if((Math.sqrt(complexNumber[0]*complexNumber[0]+complexNumber[1]*complexNumber[1])<=1 ))
-		{
-			draw(x,y,'rgb(34,9,84)',1);
-		}
-		else
-		{
-			var derivative=2*(Math.sqrt(((x-center)*scaling)*((x-center)*scaling)+((y-center)*scaling)*(y-center)*scaling));
-			
-			var colorR=255/derivative;
-			var colorG=0
-			var colorB=0
-			draw(x,y,'rgb('+colorG+','+colorR+','+colorR+')',.5)
-		}
-		
-	}
-	
-}*/
 
 
 
