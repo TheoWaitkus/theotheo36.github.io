@@ -13,9 +13,9 @@ var yIters=c.height;
 
 var ctx = c.getContext("2d");
 
-var r = .3;
-var g = .2;
-var b = .1;
+var r = 2;
+var g = 1;
+var b = 5;
 
 
 var colors = new Array(20);
