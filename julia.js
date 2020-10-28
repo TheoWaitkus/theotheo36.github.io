@@ -6,18 +6,37 @@ var center=c.width/2;
 
 var scaling=2/c.width;
 
-var iterations = 255;
+var iterations = 500;
 
 var xIters=c.height;
 var yIters=c.height;
 
 var ctx = c.getContext("2d");
 
-var realConst=-.7269;
-var imaginaryConst=0.1889;
+var r = 2;
+var g = 1;
+var b = 5;
 
-var breakout=500;
 
+var colors = new Array(20);
+
+for(var i=0;i<colors.length;i++)
+{
+	colors[i] = new Array(3);
+	colors[i][0]=255-(i*255/colors.length * r) % 256;
+	colors[i][1]=255-(i*255/colors.length * g) % 256;
+	colors[i][2]=255-(i*255/colors.length * b) % 256;
+}
+
+
+
+//var realConst=-.7269;
+//var imaginaryConst=0.1889;
+var realConst=-.8;
+var imaginaryConst=.156;
+
+var breakout=2;
+var colorScaler= 100
 
 
 function uber(complexNumber)
@@ -48,22 +67,13 @@ function fractal()
 			complexNumber = uber(complexNumber);
 			i++;
 		}
-		console.log(i);
 		if((Math.sqrt(complexNumber[0]*complexNumber[0]+complexNumber[1]*complexNumber[1])<=1 ))
 		{
-			draw(x,y,'rgb('+x*255/xIters+','+y*255/yIters+','+0+')',1);
+			draw(x,y,'rgb(0,0,0)',1);
 		}
 		else
 		{
-			var derivative=2*(Math.sqrt(((x-center)*scaling)*((x-center)*scaling)+((y-center)*scaling)*(y-center)*scaling));
-			if(i<230)
-			{
-				i=255/derivative;
-			}
-			var colorR=i;
-			var colorG=0
-			var colorB=0
-			draw(x,y,'rgb('+colorG+','+colorG+','+colorR+')',.5)
+			draw(x,y,'rgb('+colors[i%colors.length][0]+','+colors[i%colors.length][1]+','+colors[i%colors.length][2]+")",1)
 		}
 	}
 	y++;
